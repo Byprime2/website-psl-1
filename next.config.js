@@ -3,6 +3,7 @@
  */
 const nextConfig = {
   output: "export",
+  basePath: "/website-psl-1",
   distDir: "dist",
   images: {
     unoptimized: true,

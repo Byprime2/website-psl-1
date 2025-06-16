@@ -19,6 +19,12 @@ jobs:
       - run: npm run build
       - run: npm run export
 
+      - name: List output files
+        run: ls -la
+
+      - name: List current dir
+        run: ls -la
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
