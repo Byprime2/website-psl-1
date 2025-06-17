@@ -1,48 +1,47 @@
-name: Deploy Next.js to GitHub Pages
+name: Deploy Next.js 15 ↦ GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [main] # jalankan tiap kali Anda push ke branch main
+
+permissions: # izin minimum untuk Pages
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 18
+          cache: npm # cache `node_modules` biar build lebih cepat
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci # instalasi bersih
 
       - name: Build static site
-        run: |
-          npm run build
-          npm run export
+        run: npm run build # HANYA `next build` → otomatis buat folder out/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: out
+          path: ./out # folder hasil export statis
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deploy.outputs.page_url }}
 
     steps:
       - name: Deploy to GitHub Pages
-        id: deployment
+        id: deploy
         uses: actions/deploy-pages@v4
