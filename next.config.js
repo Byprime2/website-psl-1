@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "export",
-  basePath: "/website.PSL",
+  basePath: "/website-psl-1",
   images: {
     unoptimized: true,
   },
