@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy Next.js to GitHub Pages
 
 on:
   push:
@@ -10,20 +10,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
-      - run: npm ci
-      - run: npm run build
-      - run: npm run export
+      - name: Install dependencies
+        run: npm ci
 
-      - name: List output files
-        run: ls -la
-
-      - name: List current dir
-        run: ls -la
+      - name: Build static site
+        run: |
+          npm run build
+          npm run export
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

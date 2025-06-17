@@ -1,10 +1,7 @@
-/**
- * @type {import('next').NextConfig}
- */
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "export",
-  basePath: "/website-psl-1",
-  distDir: "dist",
+  basePath: "/website.PSL",
   images: {
     unoptimized: true,
   },
